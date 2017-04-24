@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 
 import com.google.common.collect.ForwardingObject;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import org.jclouds.blobstore.BlobStore;
 import org.jclouds.blobstore.BlobStoreContext;
@@ -88,7 +89,10 @@ public abstract class ForwardingBlobStore extends ForwardingObject
          String container) {
       return delegate().createContainerInLocation(location, container);
    }
-
+   @Override
+   public ListenableFuture<String> putBlobAsync(String container, Blob blob) {
+      throw new UnsupportedOperationException("unsupported operation");
+   }
    @Override
    public boolean createContainerInLocation(Location location,
          String container, CreateContainerOptions createContainerOptions) {

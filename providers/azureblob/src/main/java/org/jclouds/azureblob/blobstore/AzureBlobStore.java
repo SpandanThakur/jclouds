@@ -80,6 +80,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.io.BaseEncoding;
 import com.google.common.primitives.Ints;
+import com.google.common.util.concurrent.ListenableFuture;
 import org.jclouds.io.ContentMetadataBuilder;
 import org.jclouds.io.Payload;
 
@@ -218,6 +219,10 @@ public class AzureBlobStore extends BaseBlobStore {
       return sync.putBlob(container, blob2AzureBlob.apply(blob));
    }
 
+   @Override
+   public ListenableFuture<String> putBlobAsync(String container, Blob blob) {
+      return sync.putBlobAsync(container, blob2AzureBlob.apply(blob));
+   }
    /**
     * This implementation invokes {@link AzureBlobClient#putObject}
     *

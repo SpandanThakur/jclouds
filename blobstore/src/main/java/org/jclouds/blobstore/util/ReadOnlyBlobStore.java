@@ -38,6 +38,8 @@ import org.jclouds.blobstore.options.PutOptions;
 import org.jclouds.domain.Location;
 import org.jclouds.io.Payload;
 
+import com.google.common.util.concurrent.ListenableFuture;
+
 public final class ReadOnlyBlobStore extends ForwardingBlobStore {
    public static BlobStore newReadOnlyBlobStore(BlobStore blobStore) {
       return new ReadOnlyBlobStore(blobStore);
@@ -84,7 +86,10 @@ public final class ReadOnlyBlobStore extends ForwardingBlobStore {
    public void clearContainer(String container, ListContainerOptions options) {
       throw new UnsupportedOperationException("Read-only BlobStore");
    }
-
+   @Override
+   public ListenableFuture<String> putBlobAsync(String container, Blob blob) {
+      throw new UnsupportedOperationException("unsupported operation");
+   }
    @Override
    public void deleteContainer(String container) {
       throw new UnsupportedOperationException("Read-only BlobStore");

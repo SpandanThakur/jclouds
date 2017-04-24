@@ -98,6 +98,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.io.ByteSource;
 import com.google.common.net.HttpHeaders;
+import com.google.common.util.concurrent.ListenableFuture;
 
 @Singleton
 public final class LocalBlobStore implements BlobStore {
@@ -167,6 +168,11 @@ public final class LocalBlobStore implements BlobStore {
    @Override
    public void clearContainer(String containerName) {
       clearContainer(containerName, recursive());
+   }
+
+   @Override
+   public ListenableFuture<String> putBlobAsync(String container, Blob blob) {
+      throw new UnsupportedOperationException("unsupported operation");
    }
 
    @Override
