@@ -14,15 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jclouds.rest.annotations;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+package org.jclouds.blobstore.internal;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import org.jclouds.blobstore.BlobStoreContext;
+import org.jclouds.blobstore.util.BlobUtils;
+import org.jclouds.io.PayloadSlicer;
 
-@Target(METHOD)
-@Retention(RUNTIME)
-public @interface Async {
+import static com.google.common.base.Preconditions.checkNotNull;
+
+abstract class AbstractBlobStore {
+    protected final BlobStoreContext context;
+    protected final BlobUtils blobUtils;
+    protected final PayloadSlicer slicer;
+
+    protected AbstractBlobStore(BlobStoreContext context, BlobUtils blobUtils, PayloadSlicer slicer) {
+        this.context = checkNotNull(context, "context");
+        this.blobUtils = checkNotNull(blobUtils, "blobUtils");
+        this.slicer = checkNotNull(slicer, "slicer");
+    }
 }

@@ -14,15 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jclouds.rest.annotations;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+package org.jclouds.azureblob.blobstore.functions;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import com.google.common.base.Function;
+import org.jclouds.azureblob.domain.PublicAccess;
+import org.jclouds.blobstore.options.CreateContainerOptions;
 
-@Target(METHOD)
-@Retention(RUNTIME)
-public @interface Async {
+public class CreateContainerOptionsToAzureCreateContainerOptions implements
+      Function<CreateContainerOptions, org.jclouds.azureblob.options.CreateContainerOptions> {
+    @Override
+    public org.jclouds.azureblob.options.CreateContainerOptions apply(CreateContainerOptions input) {
+        org.jclouds.azureblob.options.CreateContainerOptions createContainerOptions = new org.jclouds.azureblob.options.CreateContainerOptions();
+        if (input.isPublicRead())
+            createContainerOptions.withPublicAccess(PublicAccess.CONTAINER);
+        return createContainerOptions;
+    }
 }
